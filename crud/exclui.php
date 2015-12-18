@@ -29,7 +29,7 @@ $sql = $con->prepare("DELETE FROM receitas_despesas WHERE id = :id");
 $sql->bindvalue("id",$id);
 $sql->execute();
 
-echo "	<script type='text/javascript'>alert('Excluido com Sucesso'); location.href='../telas/principal.php?mes=$mes&ano=$ano';</script>";
+header("location:../telas/principal.php?mes=$mes&ano=$ano");
 
 //Fecha conexão
 

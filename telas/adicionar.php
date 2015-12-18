@@ -170,7 +170,7 @@ window.onload = function(){
     <div class="row-fluid">
       <div class="span11" id="corpo">
           <div class="span9"><h1 style="margin-left: 10px"><h1 style="color: #6D6B6B"><?php echo $titulo[$mes]."/".$ano;?></h1></h1></div>
-           <a href="../telas/principal.php?mes=<?php echo $mes; ?>&ano=<?php echo $ano; ?>"><div class="span2" id="addbt">[-] Adicionar Movimento</div></a>
+           <a href="../telas/principal.php?mes=<?php echo $mes; ?>&ano=<?php echo $ano; ?>"><button type="button" class="btn btn-success btn-lg active" id="addbt">[-] Adicionar Movimento</button></a>
       </div>
     </div>
     <hr>
@@ -226,7 +226,7 @@ window.onload = function(){
 					<!-- Lista as RECEITAS do mes correspondente -->
 					<?php while ($dados = $sqlr->fetch(PDO::FETCH_ASSOC)){ $treceita = $treceita+$dados['valor'];?>
 					<tr bgcolor="E1DCDC" width="100%" style="color: green">
-						<td><?php echo utf8_encode($dados['descricao']); ?></td>
+						<td><?php echo $dados['descricao']; ?></td>
 						<td width="10%"><a href="editar.php?mes=<?php echo $mes; ?>&ano=<?php echo $ano; ?>&id=<?php echo $dados['id']; ?>">[editar]</a></td>
 						<td width="10%"><?php echo $dados['tipo'] = "Receita"; ?></td>
 						<td width="10%" align="right">R$ <?php echo $dados['valor']; ?></td>
@@ -236,7 +236,7 @@ window.onload = function(){
 					<!-- Lista as DESPESAS do mes correspondente -->
 					<?php while ($dados = $sqld->fetch(PDO::FETCH_ASSOC)){ $tdespesa = $tdespesa+$dados['valor'];?>
 					<tr bgcolor="#F2EEEE" style="color: red";>
-						<td><?php echo utf8_encode($dados['descricao']); ?></td>
+						<td><?php echo $dados['descricao']; ?></td>
 						<td width="10%"><a href="editar.php?mes=<?php echo $mes; ?>&ano=<?php echo $ano; ?>&id=<?php echo $dados['id']; ?>">[editar]</a></td>
 						<td width="10%"><?php echo $dados['tipo'] = "Despesa"; ?></td>
 						<td width="10%" align="right">R$ <?php echo $dados['valor']; ?></td>
@@ -282,7 +282,7 @@ window.onload = function(){
                               <strong style="color: red">Despesas: R$ <?php echo $gdespesa; ?> </strong>
                               <?php } ?>
                               <hr>
-                              <strong style="color: green">Saldo: R$</strong> <?php $total = $treceita-$tdespesa; 
+                              <strong style="color: green">Saldo: R$</strong> <?php $total = ($greceita-$gdespesa); 
                                 if ($total >= 0) {
                                   echo "<strong style='color: green'>$total</strong>";
                                 }else{

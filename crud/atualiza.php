@@ -30,7 +30,7 @@ if (isset($_SESSION['usuario'])) {
 if (isset($_POST['tipo'])) {
 	$tipo = $_POST['tipo'] ;
 }else{
-	echo "	<script type='text/javascript'>alert('Selecione um tipo!'); location.href='../telas/editar.php?mes=$mes&ano=$ano&id=$id';</script>";
+	header("location: ../telas/editar.php?mes=$mes&ano=$ano&id=$id");
 	return false;
 }
 
@@ -63,7 +63,7 @@ $sql->bindValue(":data",$data);
 $sql->bindValue(":valor",$valor);
 $sql->execute();
 
-	echo "<script type='text/javascript'>alert('Editado com Sucesso'); location.href='../telas/principal.php?mes=$mes&ano=$ano';</script>";
+	echo header("location: ../telas/principal.php?mes=$mes&ano=$ano");
 
 //------------------------------------------------------------------------------------
 

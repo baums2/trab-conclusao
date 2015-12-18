@@ -170,7 +170,7 @@ window.onload = function(){
     <div class="row-fluid">
       <div class="span11" id="corpo">
           <div class="span9"><h1 style="margin-left: 10px"><h1 style="color: #6D6B6B"><?php echo $titulo[$mes]."/".$ano;?></h1></h1></div>
-           <a href="../telas/adicionar.php?mes=<?php echo $mes; ?>&ano=<?php echo $ano; ?>"><div class="span2" id="addbt">[+] Adicionar Movimento</div></a>
+           <a href="../telas/adicionar.php?mes=<?php echo $mes; ?>&ano=<?php echo $ano; ?>"><button type="button" class="btn btn-success btn-lg active" id="addbt">[+] Adicionar Movimento</button></a>
       </div>
     </div>
     <hr>
@@ -181,7 +181,7 @@ window.onload = function(){
         <!-- Formulário de edição do registro -->
           <div class="container-fluid" id="edita">
               <?php while($dados = $rg->fetch(PDO::FETCH_ASSOC)) {?>  
-                <legend><strong><?php echo "Editar - ".utf8_encode($dados['descricao']); ?></strong></legend>
+                <legend><strong><?php echo "Editar - ".$dados['descricao']; ?></strong></legend>
 
                 
             <form action="../crud/atualiza.php?id=<?php echo $id ?>" method="POST">
@@ -206,7 +206,7 @@ window.onload = function(){
               <strong> | Tipo:</strong>
               <input type="radio" name="tipo" value="re"> <strong style="color: green">Receita</strong>
               <input type="radio" name="tipo" value="de"> <strong style="color: red">Despesa</strong><br><br>
-              <strong>Descrição:</strong><input type="text" name="descricao" value="<?php echo utf8_encode($dados['descricao']);?>" id="tamanhod"><br><br>
+              <strong>Descrição:</strong><input type="text" name="descricao" value="<?php echo $dados['descricao'];?>" id="tamanhod"><br><br>
               <strong>Valor:</strong> R$ <input type="number" name="valor" value="<?php echo $dados['valor'];?>"><br><br>
               <input type="submit" name="" value="Alterar">
               <a href="../crud/exclui.php?mes=<?php echo $mes; ?>&ano=<?php echo $ano; ?>&id=<?php echo $id ?>" id="font1" style="margin-left: 8px; color: red">[Excluir]</a>
@@ -225,7 +225,7 @@ window.onload = function(){
 					<!-- Lista as RECEITAS do mes correspondente -->
 					<?php while ($dados = $sqlr->fetch(PDO::FETCH_ASSOC)){ $treceita = $treceita+$dados['valor'];?>
 					<tr bgcolor="E1DCDC" width="100%" style="color: green">
-						<td><?php echo utf8_encode($dados['descricao']); ?></td>
+						<td><?php echo $dados['descricao']; ?></td>
 						<td width="10%"><a href="editar.php?mes=<?php echo $mes; ?>&ano=<?php echo $ano; ?>&id=<?php echo $dados['id']; ?>">[editar]</a></td>
 						<td width="10%"><?php echo $dados['tipo'] = "Receita"; ?></td>
 						<td width="10%" align="right">R$ <?php echo $dados['valor']; ?></td>
@@ -235,7 +235,7 @@ window.onload = function(){
 					<!-- Lista as DESPESAS do mes correspondente -->
 					<?php while ($dados = $sqld->fetch(PDO::FETCH_ASSOC)){ $tdespesa = $tdespesa+$dados['valor'];?>
 					<tr bgcolor="#F2EEEE" style="color: red";>
-						<td><?php echo utf8_encode($dados['descricao']); ?></td>
+						<td><?php echo $dados['descricao']; ?></td>
 						<td width="10%"><a href="editar.php?mes=<?php echo $mes; ?>&ano=<?php echo $ano; ?>&id=<?php echo $dados['id']; ?>">[editar]</a></td>
 						<td width="10%"><?php echo $dados['tipo'] = "Despesa"; ?></td>
 						<td width="10%" align="right">R$ <?php echo $dados['valor']; ?></td>
@@ -281,7 +281,7 @@ window.onload = function(){
                               <strong style="color: red">Despesas: R$ <?php echo $gdespesa; ?> </strong>
                               <?php } ?>
                               <hr>
-                              <strong style="color: green">Saldo: R$</strong> <?php $total = $treceita-$tdespesa; 
+                              <strong style="color: green">Saldo: R$</strong> <?php $total = ($greceita-$gdespesa); 
                                 if ($total >= 0) {
                                   echo "<strong style='color: green'>$total</strong>";
                                 }else{

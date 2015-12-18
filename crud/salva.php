@@ -28,14 +28,14 @@ if (isset($_SESSION['usuario'])) {
 if (isset($_POST['tipo'])) {
 	$tipo = $_POST['tipo'] ;
 }else{
-	echo "	<script type='text/javascript'>alert('Selecione um tipo!'); location.href='../telas/adicionar.php?mes=$mes&ano=$ano';</script>";
+	header("location: ../telas/adicionar.php?mes=$mes&ano=$ano");
 	return false;
 }
 
 if (!empty($_POST['descricao'])){
 	$desc = $_POST['descricao'] ;
 }else{
-	echo "<script type='text/javascript'>alert('Descrição em branco!'); location.href='../telas/adicionar.php?mes=$mes&ano=$ano';</script>";
+	echo header("location: '../telas/adicionar.php?mes=$mes&ano=$ano");
 	return false;
 }
 
@@ -63,7 +63,7 @@ $sql->execute();
 //Confere se o registro foi incluido no sistema
 
 	if ($sql->rowcount() > 0) {
-		echo "	<script type='text/javascript'>alert('Salvo com Sucesso!'); location.href='../telas/principal.php?mes=$mes&ano=$ano'</script>";
+		header("location: ../telas/principal.php?mes=$mes&ano=$ano");
 	}else{
 		echo "	<script type='text/javascript'>alert('Erro ao tentar salvar registro!'); location.href='../telas/principal.php?mes=$mes&ano=$ano'</script>";
 	}
