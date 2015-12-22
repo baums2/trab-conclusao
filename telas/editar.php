@@ -208,7 +208,7 @@ window.onload = function(){
               <input type="radio" name="tipo" value="re"> <strong style="color: green">Receita</strong>
               <input type="radio" name="tipo" value="de"> <strong style="color: red">Despesa</strong><br><br>
               <strong>Descrição:</strong><input type="text" name="descricao" value="<?php echo utf8_encode($dados['descricao']);?>" id="tamanhod"><br><br>
-              <strong>Valor:</strong> R$ <input type="number" name="valor" value="<?php echo $dados['valor'];?>"><br><br>
+              <strong>Valor:</strong> R$ <input type="tel" name="valor" pattern="\d+(\.\d{2})?" value="<?php echo $dados['valor'];?>"><br><br>
               <input type="submit" name="" value="Alterar">
               <a href="../crud/exclui.php?mesp=<?php echo $mesp; ?>&ano=<?php echo $ano; ?>&id=<?php echo $id ?>" id="font1" style="margin-left: 8px; color: red">[Excluir]</a>
             </form>

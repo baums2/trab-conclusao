@@ -1,3 +1,0 @@
-Instalar a base de dados que está na pasta INSTALAR!!
-
-Link para o sistema na web: http://baum.esy.es/controle_financeiro

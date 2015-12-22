@@ -208,7 +208,7 @@ window.onload = function(){
                  <input type="text" name="descricao" value="" id="tamanhod">
                 <br><br>
                 <strong> Valor: </strong>
-                R$ <input type="number" name="valor" value="">
+                R$ <input type="tel" name="valor" pattern="\d+(\.\d{2})?">
                 <br><br>
                 <p align="center"><input type="submit" name="" value="Salvar"></p>
               </form>
