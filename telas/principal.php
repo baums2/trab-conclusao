@@ -19,10 +19,10 @@ if (isset($_GET['id'])) {
 	$id = 0;
 }
 
-if (isset($_GET['mes'])) {
-	$mes = $_GET['mes'];
+if (isset($_GET['mesp'])) {
+	$mesp = $_GET['mesp'];
 }else{
-	$mes = @date('m');
+	$mesp = @date('m');
 }
 
 if (isset($_GET['ano'])) {
@@ -35,7 +35,8 @@ if (isset($_GET['ano'])) {
 $titulo = array(1 =>'JAN', 2 =>'FEV', 3 =>'MAR', 4 =>'ABR',5 =>'MAI', 6 =>'JUN', 7 =>'JUL', 8 =>'AGO', 9 =>'SET',
 10 =>'OUT', 11 =>'NOV', 12 =>'DEZ', );
 
-$data = "$ano-$mes-01";
+$data = "$ano-$mesp-01";
+
 
 //Iniciando os Acomuladores
 $tdespesa=0;
@@ -127,18 +128,18 @@ window.onload = function(){
 
             <div id="navbarCollapse" class="collapse navbar-collapse">
                <ul class="nav navbar-nav">
-                   <li><a href="principal.php?mes=1&ano=<?php echo $ano;?>">Janeiro</a></li>
-                   <li><a href="principal.php?mes=2&ano=<?php echo $ano;?>">Fevereiro</a></li>
-                   <li><a href="principal.php?mes=3&ano=<?php echo $ano;?>">Março</a></li>
-                   <li><a href="principal.php?mes=4&ano=<?php echo $ano;?>">Abril</a></li>
-                   <li><a href="principal.php?mes=5&ano=<?php echo $ano;?>">Maio</a></li>
-                   <li><a href="principal.php?mes=6&ano=<?php echo $ano;?>">Junho</a></li>
-                   <li><a href="principal.php?mes=7&ano=<?php echo $ano;?>">Julho</a></li>
-                   <li><a href="principal.php?mes=8&ano=<?php echo $ano;?>">Agosto</a></li>
-                   <li><a href="principal.php?mes=9&ano=<?php echo $ano;?>">Setembro</a></li>
-                   <li><a href="principal.php?mes=10&ano=<?php echo $ano;?>">Outubro</a></li>
-                   <li><a href="principal.php?mes=11&ano=<?php echo $ano;?>">Novembro</a></li>
-                   <li><a href="principal.php?mes=12&ano=<?php echo $ano;?>">Dezembro</a></li>
+                   <li><a href="principal.php?mesp=1&ano=<?php echo $ano;?>">Janeiro</a></li>
+                   <li><a href="principal.php?mesp=2&ano=<?php echo $ano;?>">Fevereiro</a></li>
+                   <li><a href="principal.php?mesp=3&ano=<?php echo $ano;?>">Março</a></li>
+                   <li><a href="principal.php?mesp=4&ano=<?php echo $ano;?>">Abril</a></li>
+                   <li><a href="principal.php?mesp=5&ano=<?php echo $ano;?>">Maio</a></li>
+                   <li><a href="principal.php?mesp=6&ano=<?php echo $ano;?>">Junho</a></li>
+                   <li><a href="principal.php?mesp=7&ano=<?php echo $ano;?>">Julho</a></li>
+                   <li><a href="principal.php?mesp=8&ano=<?php echo $ano;?>">Agosto</a></li>
+                   <li><a href="principal.php?mesp=9&ano=<?php echo $ano;?>">Setembro</a></li>
+                   <li><a href="principal.php?mesp=10&ano=<?php echo $ano;?>">Outubro</a></li>
+                   <li><a href="principal.php?mesp=11&ano=<?php echo $ano;?>">Novembro</a></li>
+                   <li><a href="principal.php?mesp=12&ano=<?php echo $ano;?>">Dezembro</a></li>
                    <li>
                </ul>
             </div>
@@ -148,7 +149,7 @@ window.onload = function(){
            Usuário: <?php echo $_SESSION['usuario'] ?>
            <a href="../crud/logoff.php"><img src="../img/logof.png" id="logoff"></a>
            <br>
-            <select onchange="location.replace('?mes=<?php echo $mes?>&ano='+this.value)" style="margin-top: 12px" id="selano">
+            <select onchange="location.replace('?mesp=<?php echo $mesp ?>&ano='+this.value)" style="margin-top: 12px" id="selano">
                     <?php
                     for ($i=2015;$i<=2025;$i++){
                     ?>
@@ -161,8 +162,8 @@ window.onload = function(){
 </div> 
     <div class="row-fluid">
       <div class="span11" id="corpo">
-          <div class="span9"><h1 style="margin-left: 10px"><h1 style="color: #6D6B6B"><?php echo $titulo[$mes]."/".$ano;?></h1></h1></div>
-           <a href="../telas/adicionar.php?mes=<?php echo $mes; ?>&ano=<?php echo $ano; ?>"><button type="button" class="btn btn-success btn-lg active" id="addbt">[+] Adicionar Movimento</button></a>
+          <div class="span9"><h1 style="margin-left: 10px"><h1 style="color: #6D6B6B"><?php echo $titulo[$mesp]."/".$ano;?></h1></h1></div>
+           <a href="../telas/adicionar.php?mesp=<?php echo $mesp; ?>&ano=<?php echo $ano; ?>"><button type="button" class="span2" id="addbt">[+] Adicionar Movimento</button></a>
       </div>
     </div>
     <hr>
@@ -177,8 +178,8 @@ window.onload = function(){
 					<!-- Lista as RECEITAS do mes correspondente -->
 					<?php while ($dados = $sqlr->fetch(PDO::FETCH_ASSOC)){ $treceita = $treceita+$dados['valor'];?>
 					<tr bgcolor="E1DCDC" width="100%" style="color: green">
-						<td><?php echo $dados['descricao']; ?></td>
-						<td width="10%"><a href="editar.php?mes=<?php echo $mes; ?>&ano=<?php echo $ano; ?>&id=<?php echo $dados['id']; ?>">[editar]</a></td>
+						<td><?php echo utf8_encode($dados['descricao']); ?></td>
+						<td width="10%"><a href="editar.php?mesp=<?php echo $mesp; ?>&ano=<?php echo $ano; ?>&id=<?php echo $dados['id']; ?>">[editar]</a></td>
 						<td width="10%"><?php echo $dados['tipo'] = "Receita"; ?></td>
 						<td width="10%" align="right">R$ <?php echo $dados['valor']; ?></td>
 					</tr >
@@ -187,8 +188,8 @@ window.onload = function(){
 					<!-- Lista as DESPESAS do mes correspondente -->
 					<?php while ($dados = $sqld->fetch(PDO::FETCH_ASSOC)){ $tdespesa = $tdespesa+$dados['valor'];?>
 					<tr bgcolor="#F2EEEE" style="color: red";>
-						<td><?php echo $dados['descricao']; ?></td>
-						<td width="10%"><a href="editar.php?mes=<?php echo $mes; ?>&ano=<?php echo $ano; ?>&id=<?php echo $dados['id']; ?>">[editar]</a></td>
+						<td><?php echo utf8_encode($dados['descricao']); ?></td>
+						<td width="10%"><a href="editar.php?mes=<?php echo $mesp; ?>&ano=<?php echo $ano; ?>&id=<?php echo $dados['id']; ?>">[editar]</a></td>
 						<td width="10%"><?php echo $dados['tipo'] = "Despesa"; ?></td>
 						<td width="10%" align="right">R$ <?php echo $dados['valor']; ?></td>
 					</tr>
@@ -233,7 +234,7 @@ window.onload = function(){
                               <strong style="color: red">Despesas: R$ <?php echo $gdespesa; ?> </strong>
                               <?php } ?>
                               <hr>
-                              <strong style="color: green">Saldo: R$</strong> <?php $total = ($greceita-$gdespesa); 
+                              <strong style="color: green">Saldo: R$</strong> <?php $total = $treceita-$tdespesa; 
                                 if ($total >= 0) {
                                   echo "<strong style='color: green'>$total</strong>";
                                 }else{

@@ -15,7 +15,7 @@ if (!isset($_SESSION['usuario']) AND !isset($_SESSION['senha'])) {
 
 	//Redireciona para tela de Login
 
-	echo "	<script type='text/javascript'>alert('Acesso Negado!!!'); location.href='../index.php';</script>";
+	echo "	<script type='text/javascript'>alert('Acesso Negado!!!'); location.href='../index.html';</script>";
 }
 
  ?>

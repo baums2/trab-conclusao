@@ -19,10 +19,10 @@ if (isset($_GET['id'])) {
 	$id = 0;
 }
 
-if (isset($_GET['mes'])) {
-	$mes = $_GET['mes'];
+if (isset($_GET['mesp'])) {
+	$mesp = $_GET['mesp'];
 }else{
-	$mes = @date('m');
+	$mesp = @date('m');
 }
 
 if (isset($_GET['ano'])) {
@@ -35,7 +35,7 @@ if (isset($_GET['ano'])) {
 $titulo = array(1 =>'JAN', 2 =>'FEV', 3 =>'MAR', 4 =>'ABR',5 =>'MAI', 6 =>'JUN', 7 =>'JUL', 8 =>'AGO', 9 =>'SET',
 10 =>'OUT', 11 =>'NOV', 12 =>'DEZ', );
 
-$data = "$ano-$mes-01";
+$data = "$ano-$mesp-01";
 
 //Iniciando os Acomuladores
 $tdespesa=0;
@@ -156,7 +156,7 @@ window.onload = function(){
            Usuário: <?php echo $_SESSION['usuario'] ?>
            <a href="../crud/logoff.php"><img src="../img/logof.png" id="logoff"></a>
            <br>
-            <select onchange="location.replace('?mes=<?php echo $mes?>&ano='+this.value)" style="margin-top: 12px" id="selano">
+            <select onchange="location.replace('?mesp=<?php echo $mesp?>&ano='+this.value)" style="margin-top: 12px" id="selano">
                     <?php
                     for ($i=2015;$i<=2025;$i++){
                     ?>
@@ -169,8 +169,8 @@ window.onload = function(){
 </div> 
     <div class="row-fluid">
       <div class="span11" id="corpo">
-          <div class="span9"><h1 style="margin-left: 10px"><h1 style="color: #6D6B6B"><?php echo $titulo[$mes]."/".$ano;?></h1></h1></div>
-           <a href="../telas/principal.php?mes=<?php echo $mes; ?>&ano=<?php echo $ano; ?>"><button type="button" class="btn btn-success btn-lg active" id="addbt">[-] Adicionar Movimento</button></a>
+          <div class="span9"><h1 style="margin-left: 10px"><h1 style="color: #6D6B6B"><?php echo $titulo[$mesp]."/".$ano;?></h1></h1></div>
+           <a href="../telas/principal.php?mesp=<?php echo $mesp; ?>&ano=<?php echo $ano; ?>"><div class="span2" id="addbt">[-] Adicionar Movimento</div></a>
       </div>
     </div>
     <hr>
@@ -181,23 +181,22 @@ window.onload = function(){
         <!-- Formulário de edição do registro -->
           <div class="row-fluid" id="adiciona">
               <legend align="center"><strong >Adicionar Movimentação</strong></legend>
-          <form action="../crud/salva.php" method="POST" id="form">
-                <strong> Data:</strong> <br>
-                 Mês: <select name="mes">
-                  <option value="<?php echo $mes; ?>"><?php echo $titulo[$mes];?></option>
-                  <option value="1">JAN</option>
-                  <option value="2">FEV</option>
-                  <option value="3">MAR</option>
-                  <option value="4">ABR</option>
-                  <option value="5">MAI</option>
-                  <option value="6">JUN</option>
-                  <option value="7">JUL</option>
-                  <option value="8">AGO</option>
-                  <option value="9">SET</option>
-                  <option value="10">OUT</option>
-                  <option value="11">NOV</option>
-                  <option value="12">DEZ</option>
-                  </select> /
+          <form action="../crud/salva.php?mesp=<?php echo $mesp; ?>" method="POST" id="form">
+                <strong> Data:</strong> <br><br>
+                 Mês: <br>
+                       JAN <input type="checkbox" name="mes[]" value="1"> /
+                       FEV <input type="checkbox" name="mes[]" value="2"> /
+                       MAR <input type="checkbox" name="mes[]" value="3"> / 
+                       ABR <input type="checkbox" name="mes[]" value="4"> / 
+                       MAI <input type="checkbox" name="mes[]" value="5"> / 
+                       JUN <input type="checkbox" name="mes[]" value="6">  <br>
+                       JUL <input type="checkbox" name="mes[]" value="7"> / 
+                       AGO <input type="checkbox" name="mes[]" value="8"> / 
+                       SET <input type="checkbox" name="mes[]" value="9"> / 
+                       OUT <input type="checkbox" name="mes[]" value="10"> /
+                       NOV <input type="checkbox" name="mes[]" value="11"> /
+                       DEZ <input type="checkbox" name="mes[]" value="12"> 
+                       <br><br>
                  Ano: <input type="number" name="ano" value="<?php echo $ano; ?>" id="tamanho">
                 <br>
                 <br>
@@ -226,8 +225,8 @@ window.onload = function(){
 					<!-- Lista as RECEITAS do mes correspondente -->
 					<?php while ($dados = $sqlr->fetch(PDO::FETCH_ASSOC)){ $treceita = $treceita+$dados['valor'];?>
 					<tr bgcolor="E1DCDC" width="100%" style="color: green">
-						<td><?php echo $dados['descricao']; ?></td>
-						<td width="10%"><a href="editar.php?mes=<?php echo $mes; ?>&ano=<?php echo $ano; ?>&id=<?php echo $dados['id']; ?>">[editar]</a></td>
+						<td><?php echo utf8_encode($dados['descricao']); ?></td>
+						<td width="10%"><a href="editar.php?mesp=<?php echo $mesp; ?>&ano=<?php echo $ano; ?>&id=<?php echo $dados['id']; ?>">[editar]</a></td>
 						<td width="10%"><?php echo $dados['tipo'] = "Receita"; ?></td>
 						<td width="10%" align="right">R$ <?php echo $dados['valor']; ?></td>
 					</tr >
@@ -236,8 +235,8 @@ window.onload = function(){
 					<!-- Lista as DESPESAS do mes correspondente -->
 					<?php while ($dados = $sqld->fetch(PDO::FETCH_ASSOC)){ $tdespesa = $tdespesa+$dados['valor'];?>
 					<tr bgcolor="#F2EEEE" style="color: red";>
-						<td><?php echo $dados['descricao']; ?></td>
-						<td width="10%"><a href="editar.php?mes=<?php echo $mes; ?>&ano=<?php echo $ano; ?>&id=<?php echo $dados['id']; ?>">[editar]</a></td>
+						<td><?php echo utf8_encode($dados['descricao']); ?></td>
+						<td width="10%"><a href="editar.php?mesp=<?php echo $mesp; ?>&ano=<?php echo $ano; ?>&id=<?php echo $dados['id']; ?>">[editar]</a></td>
 						<td width="10%"><?php echo $dados['tipo'] = "Despesa"; ?></td>
 						<td width="10%" align="right">R$ <?php echo $dados['valor']; ?></td>
 					</tr>
@@ -282,7 +281,7 @@ window.onload = function(){
                               <strong style="color: red">Despesas: R$ <?php echo $gdespesa; ?> </strong>
                               <?php } ?>
                               <hr>
-                              <strong style="color: green">Saldo: R$</strong> <?php $total = ($greceita-$gdespesa); 
+                              <strong style="color: green">Saldo: R$</strong> <?php $total = $treceita-$tdespesa; 
                                 if ($total >= 0) {
                                   echo "<strong style='color: green'>$total</strong>";
                                 }else{

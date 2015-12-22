@@ -1,19 +1,18 @@
-
-#principal{
+#principal {
     width: 500px;
     height: 300px;
     margin-left: 50px;
 }
 
-#login{
+#login {
     width: 350px;
     height: 180px;
 }
 
-strong{
+strong {
     color: darkgreen;
 }
 
-div{
+div {
     background-color: darkseagreen;
 }

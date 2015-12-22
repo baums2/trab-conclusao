@@ -13,8 +13,8 @@ if (isset($_GET['id'])) {
 	$id = $_GET['id'];
 }
 
-if (isset($_GET['mes'])) {
-	$mes = $_GET['mes'];
+if (isset($_GET['mesp'])) {
+	$mesp = $_GET['mesp'];
 }
 
 if (isset($_GET['ano'])) {
@@ -29,7 +29,7 @@ $sql = $con->prepare("DELETE FROM receitas_despesas WHERE id = :id");
 $sql->bindvalue("id",$id);
 $sql->execute();
 
-header("location:../telas/principal.php?mes=$mes&ano=$ano");
+header("location: ../telas/principal.php?mesp=$mesp&ano=$ano");
 
 //Fecha conexão
 
